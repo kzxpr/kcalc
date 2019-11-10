@@ -1,0 +1,23 @@
+#!/bin/bash
+IFS=' ' # space is set as delimiter
+
+declare -A VARS
+VARS[x]=3
+VARS[y]=10
+while IFS= read -r line
+do
+  V=${line%=*}
+  repline=${line#*=}
+
+  for i in "${!VARS[@]}";
+  do
+#    echo "$i=${VARS[$i]}";
+    repline=${repline//$i/${VARS[$i]}}
+  done;
+  E=${repline}
+
+  RES=$(echo "$E" | bc)
+  VARS[$V]=$((RES))
+  echo "$line = $E = $RES"
+
+done < calculations

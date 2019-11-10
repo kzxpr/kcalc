@@ -1,0 +1,4 @@
+xpos=10
+y=20
+z=xpos*y
+f=z/5
